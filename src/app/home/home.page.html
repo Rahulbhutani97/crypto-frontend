@@ -1,0 +1,115 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="header-background-color">
+    <ion-title>
+      Crypto
+    </ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button (click)="logOutAlert()">
+        <ion-icon slot="icon-only" ios="power" md="power"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense" color="danger">
+    <ion-toolbar>
+      <ion-title size="large">Crypto</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards right" routerLink="/games">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="people"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>UTTAR</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards left" (click)="presentModal()">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="chatbubbles"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>RESULT</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards right" routerLink="/ledger">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="book"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>LEDGER</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards left" routerLink="/jantari">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="newspaper"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>JANTARI</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards right" routerLink="/add-game">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="settings"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>ADD GAME</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards left" routerLink="/my-game">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="game-controller"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>MY GAMES</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-card color="danger" mode="ios" class="cards right" routerLink="/add-user">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="person"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>ADD USER</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <!-- <ion-card color="danger" mode="ios" class="cards left" routerLink="/my-game">
+          <ion-card-content>
+            <ion-icon class="cards-icon" name="game-controller"></ion-icon>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>MY GAMES</ion-card-title>
+          </ion-card-header>
+        </ion-card> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,41 @@
+
+<ion-content>
+<div class="background">
+  <div class="login-container">
+    <ion-item lines="none">
+      <ion-label color="light"><h1>Login</h1></ion-label>
+    </ion-item>
+    
+    <form [formGroup]="loginForm">
+      <ion-item>
+        <ion-label mode="ios" color="light" position="floating">Mobile Number</ion-label>
+        <ion-input type="tel" maxlength="25" color="light" formControlName="email" placeholder="Enter mobile number"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="errors?.email" lines="none" class="error-msg">
+        <label>{{ errors.email }}</label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label mode="ios" color="light" position="floating">Password</ion-label>
+        <ion-input type="password" color="light"  formControlName="password" placeholder="Enter password"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="errors?.password" lines="none" class="error-msg">
+        <label>{{ errors.password }}</label>
+      </ion-item>
+
+
+      <div class="button">
+        <ion-button color="light" color="light" expand="block" shape="round" (click)="login()">Login</ion-button>
+      </div>
+    </form>
+    
+  </div>
+
+  <div class="contact">
+    <div>
+      Question? Contact us at +91-9876543210
+    </div>
+  </div>
+  
+</div>
+</ion-content>

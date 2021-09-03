@@ -1,0 +1,53 @@
+.background{
+    background: var(--ion-color-danger);
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    overflow: auto;
+}
+
+.login-container{
+    padding: 20px;
+    margin-top: 80px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 500px;
+
+    .button{
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    
+
+    ion-item{
+        --background: transparent;
+    }
+
+    .error-msg{
+        /*--min-height: 60px; */
+        color: white;
+        color: white;
+        --background: #ab0000;
+        --border-color: white;
+        /* --border-width: 1px; */
+        --border-radius: 5px;
+        margin-top: 10px;
+    }
+}
+
+.contact{
+    position: fixed;
+    bottom: 10px;
+    color: white;
+    font-size: 13px;
+    left: 0;
+    right: 0;
+}
+
+.contact div{
+    text-align: center;
+}

@@ -1,0 +1,283 @@
+<ion-header>
+  <ion-toolbar class="header-background-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Dishawar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="margin: 10px;">
+  <ion-segment mode="ios" value="cutting" (ionChange)="segmentChanged($event)" class="segment-tab" color="danger">
+    <ion-segment-button value="cutting">
+      <ion-label>Cutting</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="crossing">
+      <ion-label>Crossing</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="harup">
+      <ion-label>Harup</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="to">
+      <ion-label>To</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div class="select-with-search">
+<mat-form-field>
+  <mat-select [formControl]="userServerSideCtrl" placeholder="User">
+    <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+    <mat-option>
+      <ngx-mat-select-search 
+        [formControl]="userServerSideFilteringCtrl" 
+        [searching]="searching"
+        placeholderLabel="Find users..."
+        [noEntriesFoundLabel]="searchResult">
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let user of filteredServerSideUsers | async" [value]="user">
+      {{user.name}} ({{user.mobile}})
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<!-- ########### Cutting section ################ -->
+<!-- ########### Cutting section ################ -->
+<!-- ########### Cutting section ################ -->
+<!-- ########### Cutting section ################ -->
+<div class="cutting-section" *ngIf="gametype=='cutting'">
+  <div class="select-numbers">
+  Selected Numbers:
+  </div>
+  <div class="selected-numbers">{{cuttingSetToshow}}</div>
+
+
+  <ion-item>
+    <ion-label mode="ios" color="danger" position="floating">Numbers</ion-label>
+    <ion-input [(ngModel)]="cuttingInput" (input)="formatCutting($event)" type="text" placeholder="Enter numbers" appAppOnlyNumber></ion-input>
+  </ion-item>
+  
+
+  <ion-item>
+    <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
+    <ion-input type="number" [(ngModel)]="enterAmount" placeholder="Enter amount"></ion-input>
+  </ion-item>
+
+  <div class="button">
+  <ion-button color="danger" shape="round" [disabled]="cuttingSet.length < 1"  (click)="presentAlertCheckbox()" style="margin-right: 50px;">Delete</ion-button>
+  <ion-button color="danger" shape="round" 
+    [disabled]="enterAmount < 1 || cuttingSet.length < 1" 
+    (click)="presentAlertConfirm('cutting','Cutting Details')">Save</ion-button>
+  </div>
+  <ion-button (click)="createOrder()">ss</ion-button>
+</div>
+
+
+<!-- ########### Crossing section ################ -->
+<!-- ########### Crossing section ################ -->
+<!-- ########### Crossing section ################ -->
+<!-- ########### Crossing section ################ -->
+
+<div class="crossing-section" *ngIf="gametype=='crossing'">
+  <ion-list lines="none">
+    <ion-radio-group (ionChange)="joditypeChange()" [(ngModel)]="joditype">
+  
+      <ion-item>
+        <ion-label>Jodi</ion-label>
+        <ion-radio color="danger" slot="start" value="jodi"></ion-radio>
+      </ion-item>
+
+      <div [class.disableDiv]="joditype!='jodi'">
+      <div class="custom-checkbox">
+        <div *ngFor="let num of jodi;let i=index">
+        <div *ngIf="i < 5">
+        <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="jodinumSelected(i)">{{num.val}}</div>
+        <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+        </div>
+        </div>
+      </div>
+      <div class="custom-checkbox">
+        <div *ngFor="let num of jodi;let i=index">
+          <div *ngIf="i > 4">
+          <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="jodinumSelected(i)">{{num.val}}</div>
+          <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <ion-item>
+        <ion-label>Without Jodi</ion-label>
+        <ion-radio color="danger" slot="start" value="withoutjodi"></ion-radio>
+      </ion-item>
+      
+      <div [class.disableDiv]="joditype!='withoutjodi'">
+      <div class="custom-checkbox">
+        <div *ngFor="let num of withoutjodi;let i=index">
+        <div *ngIf="i < 5">
+        <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="withoutjodinumSelected(i)">{{num.val}}</div>
+        <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+        </div>
+        </div>
+      </div>
+      <div class="custom-checkbox">
+        <div *ngFor="let num of withoutjodi;let i=index">
+          <div *ngIf="i > 4">
+          <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="withoutjodinumSelected(i)">{{num.val}}</div>
+          <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+          </div>
+        </div>
+      </div>
+      </div>
+    </ion-radio-group>
+  </ion-list>
+
+    <div class="crossing-lower">
+      <div class="select-numbers">
+      Selected Numbers:
+      </div>
+      <div class="selected-numbers">{{ finalSelectedCrossing }}</div>
+
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="enterAmount" placeholder="Enter amount"></ion-input>
+      </ion-item>
+    
+      <div class="button">
+      <ion-button shape="round" color="danger" 
+      [disabled]="enterAmount < 1 || selectedJodi.length < 1" 
+      (click)="presentAlertConfirm('crossing','Crossing Details')">Save</ion-button>
+      </div>
+    </div>
+
+</div>
+
+
+
+<!-- ########### Harup section ################ -->
+<!-- ########### Harup section ################ -->
+<!-- ########### Harup section ################ -->
+<!-- ########### Harup section ################ -->
+
+<div class="crossing-section" *ngIf="gametype=='harup'">
+  <ion-list lines="none">
+    <ion-radio-group (ionChange)="harupTypeChange()" [(ngModel)]="harupType">
+  
+      <ion-item>
+        <ion-label>Andar</ion-label>
+        <ion-radio color="danger" slot="start" value="andar"></ion-radio>
+      </ion-item>
+
+      <div [class.disableDiv]="harupType != 'andar'">
+        <div class="custom-checkbox">
+          <div *ngFor="let num of andar;let i=index">
+          <div *ngIf="i < 5">
+          <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="andarNumSelected(i)">{{num.val}}</div>
+          <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+          </div>
+          </div>
+        </div>
+        <div class="custom-checkbox">
+          <div *ngFor="let num of andar;let i=index">
+            <div *ngIf="i > 4">
+            <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="andarNumSelected(i)">{{num.val}}</div>
+            <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label>Bahar</ion-label>
+        <ion-radio color="danger" slot="start" value="bahar"></ion-radio>
+      </ion-item>
+      
+      <div [class.disableDiv]="harupType != 'bahar'">
+        <div class="custom-checkbox">
+          <div *ngFor="let num of bahar;let i=index">
+          <div *ngIf="i < 5">
+          <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="baharNumSelected(i)">{{num.val}}</div>
+          <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+          </div>
+          </div>
+        </div>
+        <div class="custom-checkbox">
+          <div *ngFor="let num of bahar;let i=index">
+            <div *ngIf="i > 4">
+            <div for="checkbox" class="jodi-number" [class.active]="num.isChecked" (click)="baharNumSelected(i)">{{num.val}}</div>
+            <ion-checkbox class="checkbox-none" id="checkbox" [(ngModel)]="num.isChecked"></ion-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-radio-group>
+  </ion-list>
+
+    <div class="crossing-lower">
+      <div class="select-numbers">
+      Selected Numbers:
+      </div>
+      <div class="selected-numbers"> {{ finalSelectedHarup }} </div>
+
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="enterAmount" placeholder="Enter amount"></ion-input>
+      </ion-item>
+    
+      <div class="button">
+      <ion-button shape="round" color="danger" 
+      [disabled]="enterAmount < 1 || selectedHarup.length < 1"
+       (click)="presentAlertConfirm('harup','Harup Details')">Save</ion-button>
+      </div>
+    </div>
+
+</div>
+
+
+<!-- ########### To section ################ -->
+<!-- ########### To section ################ -->
+<!-- ########### To section ################ -->
+<!-- ########### To section ################ -->
+<div class="to-section" *ngIf="gametype=='to'">
+  <ion-grid style="margin-top: 20px;">
+    <ion-row>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="5">
+        <ion-item>
+          <ion-label mode="ios" color="danger" position="floating">From</ion-label>
+          <ion-input type="number" [(ngModel)]="fromNumber" (ionChange)="fromtoChange()" min="0" max="99" placeholder="Enter number"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="2">
+        <div class="middle-dash">
+          -
+        </div>
+      </ion-col>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="5">
+        <ion-item>
+          <ion-label mode="ios" color="danger" position="floating">To</ion-label>
+          <ion-input type="number" [(ngModel)]="toNumber" (ionBlur)="fromtoChange()" min="0" max="99" placeholder="Enter number" [disabled]="fromNumber == null"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-col sizeLg="4" sizeMd="4" sizeXs="6">
+    <ion-item>
+      <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="enterAmount" placeholder="Enter amount"></ion-input>
+    </ion-item>
+  </ion-col>
+  <div class="button">
+    <ion-button shape="round" color="danger" 
+    [disabled]="enterAmount < 1 || finalSelectedTo.length < 1" 
+    (click)="presentAlertConfirm('to','To Details')">Save</ion-button>
+    </div>
+
+    <div class="select-numbers">
+      Selected Numbers:
+      </div>
+      <div class="selected-numbers">{{ finalSelectedTo }}</div>
+</div>
+</ion-content>

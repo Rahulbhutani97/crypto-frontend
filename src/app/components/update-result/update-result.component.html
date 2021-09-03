@@ -1,0 +1,28 @@
+<div>
+<div class="modal-header">Result Number</div>
+<div class="modal-container">
+  <div class="modal-body">
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label color="danger">Games</ion-label>
+        <ion-select mode="ios" value="Dishawar" okText="Okay" cancelText="Dismiss" interface="action-sheet" placeholder="Select One">
+          <ion-select-option value="Dishawar">Dishawar</ion-select-option>
+          <ion-select-option value="Kalyan">Kalyan</ion-select-option>
+          <ion-select-option value="Faridabad">Faridabad</ion-select-option>
+          <ion-select-option value="Gaziabad">Gaziabad</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label mode="ios" color="danger" position="floating">Number</ion-label>
+      <ion-input type="number" min="0" max="100" placeholder="Enter number"></ion-input>
+    </ion-item>
+
+    <div class="button">
+      <ion-button color="danger" (click)="dismiss()" style="margin-right: 40px;">Close</ion-button>
+      <ion-button color="danger" (click)="presentAlertConfirm()">Save</ion-button>
+    </div>
+  </div>
+</div>
+</div>

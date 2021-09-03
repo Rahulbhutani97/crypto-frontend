@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar class="header-background-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="to-section">
+
+    <form [formGroup]="addUserForm">
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">User Name</ion-label>
+        <ion-input formControlName="name" placeholder="Enter user name"></ion-input>
+      </ion-item>
+      <div class="errors" *ngIf="name && name.errors && (name.dirty || name.touched)"> This field is required. </div>
+    
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Mobile Number</ion-label>
+        <ion-input type="tel" maxlength="10" formControlName="mobile" placeholder="Enter mobile number"></ion-input>
+      </ion-item>
+      
+      <div class="errors" *ngIf="mobile && mobile.errors && (mobile.dirty || mobile.touched)">
+          <div *ngIf="mobile.errors.required"><small>This field is required</small></div>
+          <div *ngIf="mobile.errors.minlength || mobile.errors.maxlength"><small>Only 10 digit allowed</small></div>
+          <div *ngIf="mobile.errors.pattern"><small>Only number allowed</small></div>
+      </div>
+
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Commission</ion-label>
+        <ion-input type="number" formControlName="commission" placeholder="Enter Commission"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Share</ion-label>
+        <ion-input type="number" formControlName="share" placeholder="Enter share"></ion-input>
+      </ion-item>
+
+      <div class="button">
+        <ion-button [disabled]="!addUserForm.valid" (click)="addUser()" color="danger">Add User</ion-button>
+      </div>
+    </form>
+</div>
+</ion-content>

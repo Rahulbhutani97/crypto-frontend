@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar class="header-background-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Games</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime mode="ios" displayFormat="DDDD, DD/MM/YYYY" min="1994-03-14" max="2050-12-30" [(ngModel)]="currentDate"></ion-datetime>
+  </ion-item>
+
+  <ion-grid style="margin-top: 20px;">
+    <ion-row>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let game of games" [routerLink]="['/game-form']" [queryParams]="{id:game.id}">
+        <div class="game-image">
+          <img src="{{game.image}}" *ngIf="game.image" />
+          <img src="assets/images/game.png" *ngIf="!game.image" />
+        </div>
+        <div class="game-name">{{game.name}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

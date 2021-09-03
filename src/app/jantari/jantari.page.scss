@@ -1,0 +1,61 @@
+.show-button{
+    border: 1px solid;
+    text-align: center;
+    height: 38px;
+    border-radius: 50px;
+    padding: 7px;
+    font-size: 20px;
+}
+
+.total-area{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px;
+}
+
+ion-item{
+    --min-height: 38px;
+}
+
+.jantari-container{
+    margin: 20px;
+    overflow: auto;
+    
+    .jantari-table{
+        width: 100%;
+
+        .odd{
+            padding-bottom: 10px;
+        }
+        .even{
+            padding-bottom: 5px;
+        }
+
+        .even div{
+            width: 42px;
+            height: 25px;
+            border: 1px solid grey;
+            border-radius: 6px;
+            background: #ececec;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .blank{
+
+        }
+
+        .blank div{
+            width: 30px;
+        }
+
+        .total{
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            padding-bottom: 40px;
+            padding-top: 10px;
+        }
+    }
+
+}

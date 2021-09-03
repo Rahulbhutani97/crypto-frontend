@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar class="header-background-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="to-section">
+
+    <form [formGroup]="addGameForm">
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Game Name</ion-label>
+        <ion-input formControlName="name" placeholder="Enter game name"></ion-input>
+      </ion-item>
+    
+
+    
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Game Short Name</ion-label>
+        <ion-input formControlName="short_name" placeholder="Enter game short name"></ion-input>
+      </ion-item>
+    
+
+    
+      <ion-item>
+        <ion-label mode="ios" color="danger" position="floating">Game Result Time</ion-label>
+        <ion-input formControlName="result_time" placeholder="HH:MM"></ion-input>
+      </ion-item>
+    
+
+      <div class="button">
+        <ion-button color="danger" (click)="addGame()">Add New Game</ion-button>
+      </div>
+    </form>
+</div>
+</ion-content>

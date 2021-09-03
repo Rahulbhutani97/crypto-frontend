@@ -1,0 +1,22 @@
+<div>
+  <div class="modal-header">Date Filter</div>
+  <div class="modal-container">
+    <div class="modal-body">
+      <ion-item>
+        <ion-label>From Date</ion-label>
+        <ion-datetime mode="ios" displayFormat="DDDD, DD/MM/YYYY" min="1994-03-14" max="2050-12-30" [(ngModel)]="currentDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>To Date</ion-label>
+        <ion-datetime mode="ios" displayFormat="DDDD, DD/MM/YYYY" min="1994-03-14" max="2050-12-30" [(ngModel)]="currentDate"></ion-datetime>
+      </ion-item>
+  
+      <div class="button">
+        <ion-button color="danger" (click)="dismiss()" style="margin-right: 40px;">Close</ion-button>
+        <ion-button color="danger" (click)="presentAlertConfirm()">Save</ion-button>
+      </div>
+    </div>
+  </div>
+  </div>
+  

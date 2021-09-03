@@ -1,0 +1,101 @@
+.segment-tab{
+    height: 40px;
+}
+
+.select-with-search{
+    padding: 20px;
+    padding-bottom: 0;
+    mat-form-field{
+        width: 100%;
+    }
+}
+
+.cutting-section{
+    margin: 10px 10px 10px 10px;
+    
+    .select-numbers{
+        margin-bottom: 15px;
+    }
+    
+    .selected-numbers{
+        line-height: 2;
+    }
+    
+    .button{
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+.crossing-section{
+    .disableDiv{
+        pointer-events:none;
+    }
+    
+    .custom-checkbox {
+        display: flex;
+        align-items: center;
+        margin: 0px 20px 10px 20px;
+    
+        .jodi-number{
+            background: grey;
+            padding: 10px 15px;
+            color: white;
+            margin-right: 10px;
+        }
+    
+        .active{
+            background:#eb445a;
+        }
+    
+        .checkbox-none{
+            display: none;
+        }
+    }
+
+    .crossing-lower{
+        margin:10px 17px 10px 17px;
+    }
+
+    .select-numbers{
+        margin-bottom: 15px;
+    }
+    
+    .selected-numbers{
+        line-height: 2;
+        white-space: nowrap;
+        overflow: auto;
+    }
+    
+    .button{
+        text-align: center;
+        margin-top: 15px;
+    }
+}
+
+.to-section{
+    margin: 20px;
+
+    .middle-dash{
+        text-align: center;
+        font-size: 50px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        color:var(--ion-color-danger) !important;
+    }
+
+    .select-numbers{
+        margin-bottom: 15px;
+        margin-top: 20px;
+    }
+    
+    .selected-numbers{
+        line-height: 2;
+    }
+
+    .button{
+        text-align: center;
+        margin-top: 15px;
+    }
+}

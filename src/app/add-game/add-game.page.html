@@ -15,24 +15,48 @@
         <ion-label mode="ios" color="danger" position="floating">Game Name</ion-label>
         <ion-input formControlName="name" placeholder="Enter game name"></ion-input>
       </ion-item>
-    
 
-    
+
+
       <ion-item>
         <ion-label mode="ios" color="danger" position="floating">Game Short Name</ion-label>
-        <ion-input formControlName="short_name" placeholder="Enter game short name"></ion-input>
+        <ion-input formControlName="short_name" maxlength="3" placeholder="Enter game short name"></ion-input>
       </ion-item>
-    
 
-    
+
+
       <ion-item>
         <ion-label mode="ios" color="danger" position="floating">Game Result Time</ion-label>
-        <ion-input formControlName="result_time" placeholder="HH:MM"></ion-input>
+        <!-- <ion-input formControlName="result_time" placeholder="HH:MM"></ion-input> -->
+        <ion-datetime formControlName="result_time" mode="ios" displayFormat="HH:mm"></ion-datetime>
       </ion-item>
-    
+      <div>
+        <a class="note">Note:</a> Time format will be 24 hour.
+      </div>
+
+      <ion-radio-group *ngIf="updateStatus" formControlName="active_status">
+        <ion-item class="game-status" lines="none">
+          <ion-label color="danger">Game Status:</ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Active</ion-label>
+          <ion-radio color="danger" slot="start" value="1"></ion-radio>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Deactive</ion-label>
+          <ion-radio color="danger" slot="start" value="0"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+      <div *ngIf="updateStatus">
+        <a class="note">Note:</a> Only Active games showing in booking's playing games list.
+      </div>
+
 
       <div class="button">
-        <ion-button color="danger" (click)="addGame()">Add New Game</ion-button>
+        <ion-button *ngIf="!updateStatus" color="danger" (click)="addGame()">Add New Game</ion-button>
+        <ion-button *ngIf="updateStatus" color="danger" (click)="updateGame()">Update Game</ion-button>
       </div>
     </form>
 </div>

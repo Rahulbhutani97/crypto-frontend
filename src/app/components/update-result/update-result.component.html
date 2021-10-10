@@ -5,23 +5,20 @@
     <ion-list lines="none">
       <ion-item>
         <ion-label color="danger">Games</ion-label>
-        <ion-select mode="ios" value="Dishawar" okText="Okay" cancelText="Dismiss" interface="action-sheet" placeholder="Select One">
-          <ion-select-option value="Dishawar">Dishawar</ion-select-option>
-          <ion-select-option value="Kalyan">Kalyan</ion-select-option>
-          <ion-select-option value="Faridabad">Faridabad</ion-select-option>
-          <ion-select-option value="Gaziabad">Gaziabad</ion-select-option>
+        <ion-select #gameId (ionChange)="gameSelected(gameId.value)" mode="ios" okText="Okay" cancelText="Dismiss" interface="action-sheet" placeholder="Select One">
+          <ion-select-option *ngFor="let game of games" [value]="game.id">{{game.name}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
 
     <ion-item>
       <ion-label mode="ios" color="danger" position="floating">Number</ion-label>
-      <ion-input type="number" min="0" max="100" placeholder="Enter number"></ion-input>
+      <ion-input #resultNumber [(ngModel)]="result" inputmode="numeric" maxlength="2" min="0" max="99" placeholder="Enter number"></ion-input>
     </ion-item>
 
     <div class="button">
       <ion-button color="danger" (click)="dismiss()" style="margin-right: 40px;">Close</ion-button>
-      <ion-button color="danger" (click)="presentAlertConfirm()">Save</ion-button>
+      <ion-button color="danger" [disabled]="!(gameId.value && resultNumber.value)" (click)="save(gameId.value, resultNumber.value)">Save</ion-button>
     </div>
   </div>
 </div>

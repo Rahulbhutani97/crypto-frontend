@@ -10,17 +10,27 @@
 <ion-content>
   <ion-item>
     <ion-label>Date</ion-label>
-    <ion-datetime mode="ios" displayFormat="DDDD, DD/MM/YYYY" min="1994-03-14" max="2050-12-30" [(ngModel)]="currentDate"></ion-datetime>
+    <ion-datetime mode="ios" #curtime (ngModelChange)="dateChange(curtime.value)" displayFormat="DDDD, DD/MM/YYYY" min="1994-03-14" max="2050-12-30" [(ngModel)]="currentDate"></ion-datetime>
   </ion-item>
 
   <ion-grid style="margin-top: 20px;">
     <ion-row>
-      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let game of games" [routerLink]="['/game-form']" [queryParams]="{id:game.id}">
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let game of games">
+        <div  [hidden]="!game.status" [routerLink]="['/game-form']" [queryParams]="{id:game.id}">
         <div class="game-image">
           <img src="{{game.image}}" *ngIf="game.image" />
           <img src="assets/images/game.png" *ngIf="!game.image" />
         </div>
         <div class="game-name">{{game.name}}</div>
+        </div>
+
+        <div [ngStyle]="{'opacity': game.status ? 1:.6}"  [hidden]="game.status" (click)="toastOpen()">
+          <div class="game-image">
+            <img src="{{game.image}}" *ngIf="game.image" />
+            <img src="assets/images/game.png" *ngIf="!game.image" />
+          </div>
+          <div class="game-name">{{game.name}}</div>
+          </div>
       </ion-col>
     </ion-row>
   </ion-grid>

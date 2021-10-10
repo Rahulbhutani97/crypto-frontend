@@ -24,7 +24,7 @@ export class AddUserPage implements OnInit {
     share: new FormControl(''),
     user_type: new FormControl('2'),
   });
-  
+
   errors;
 
   constructor(private authService: AuthenticationService,
@@ -41,7 +41,7 @@ export class AddUserPage implements OnInit {
   }
 
   get mobile(): any {
-    console.log(this.addUserForm);
+    //console.log(this.addUserForm);
     return this.addUserForm.get('mobile');
   }
 

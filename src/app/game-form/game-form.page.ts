@@ -52,6 +52,7 @@ export class GameFormPage implements OnInit {
   searchResult:any;
   game_id:any;
   order_id:any;
+  postData:any;
 
   public jodi = [
     { val: 0, isChecked: false },
@@ -117,7 +118,7 @@ export class GameFormPage implements OnInit {
   // for mat select form field
   // for mat select form field
   // for mat select form field
-  
+
   /** list of users */
   protected users: User[];
 
@@ -132,7 +133,7 @@ export class GameFormPage implements OnInit {
 
   /** list of users filtered after simulating server side search */
   public  filteredServerSideUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1);
-  
+
   // for mat select form field
   // for mat select form field
   // for mat select form field
@@ -157,7 +158,7 @@ export class GameFormPage implements OnInit {
         this.filteredServerSideUsers.next([]);
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-          this.searchUser(response); 
+          this.searchUser(response);
         }, 1000);
       },
       error => {
@@ -183,37 +184,70 @@ export class GameFormPage implements OnInit {
     this.route.queryParams.subscribe(param => {
       if(param.id){
         this.game_id = param.id;
+        this.postData = { 'game_id':this.game_id }
       }else{
         return false;
       }
-     
-      this.http.postRequest('/api/orders',{'game_id':this.game_id},true).subscribe((response:Response)=>{
+
+      if(localStorage.getItem('order_data')){
+        let orderData = JSON.parse(localStorage.getItem('order_data'));
+        if(orderData.game_id == this.game_id){
+          this.postData.order_data = orderData;
+        }
+      }
+
+      this.http.postRequest('/api/orders',this.postData,true).subscribe((response:Response)=>{
         this.loadingDismiss();
         if(response.status=='success'){
           this.order_id = response.data.id;
+          localStorage.setItem('order_data',JSON.stringify(response.data));
         }else{
-          alert('Something went wrong! Please Try again.');
+          //alert('Something went wrong! Please Try again.');
         }
       },error=>{
         this.loadingDismiss();
-        alert('Something went wrong! Please Try again.');
+        //alert('Something went wrong! Please Try again.');
       });
 
     });
   }
 
   updateOrder(formdata){
-    this.http.putRequest('/api/orders/${this.order_id}',formdata,true).subscribe((response:Response)=>{
+    this.http.putRequest('/api/orders/'+this.order_id,formdata,true).subscribe((response:Response)=>{
       this.loadingDismiss();
       if(response.status=='success'){
-        this.order_id = response.data.id;
+        this.enterAmount = null;
+        //for cutting
+        this.cuttingInput = '';
+        this.cuttingSetToshow = '';
+        this.cuttingSet = [];
+        alert(response?.message);
+      }else if(response.status){
+        localStorage.removeItem('order_data');
+      }else if(!response.status){
+        alert(response?.message);
       }else{
-        alert('Something went wrong! Please Try again.');
+        //alert('Something went wrong! Please Try again.');
       }
     },error=>{
       this.loadingDismiss();
-      alert('Something went wrong! Please Try again.');
+      //alert('Something went wrong! Please Try again.');
     });
+  }
+
+  finalSubmit(){
+    if(!this.userServerSideCtrl.value){
+      alert('Please select user');
+      return false;
+    }
+
+    var formdata = {
+      user: this.userServerSideCtrl.value,
+      status: 1
+    };
+    if(this.order_id){
+      this.updateOrder(formdata);
+    }
   }
 
   segmentChanged(event){
@@ -230,7 +264,7 @@ export class GameFormPage implements OnInit {
   formatCutting(event){
     this.cuttingInput = event.target.value;
     this.cuttingSet = this.cuttingInput.replace(/\s+/g, '');
-    
+
     let numbers = [];
     for (let i = 0; i < this.cuttingSet.length; i += 2) {
       numbers.push(this.cuttingSet.substr(i, 2));
@@ -243,7 +277,18 @@ export class GameFormPage implements OnInit {
   }
 
   saveCutting(){
-    var formdata = 1;
+    console.log(this.userServerSideCtrl.value);
+
+    if(!this.userServerSideCtrl.value){
+      alert('Please select user');
+      return false;
+    }
+
+    var formdata = {
+      user: this.userServerSideCtrl.value,
+      cutting: this.cuttingSet.join(','),
+      amount: this.enterAmount
+    };
     if(this.order_id){
       this.updateOrder(formdata);
     }
@@ -257,7 +302,7 @@ export class GameFormPage implements OnInit {
 
   joditypeChange(){
     this.formatedJodi = [];
-    
+
     if(this.fixChangeType != this.joditype){
       this.finalSelectedCrossing = '';
       this.fixChangeType = this.joditype;
@@ -325,7 +370,7 @@ export class GameFormPage implements OnInit {
           }
         }
       }
-      
+
     }
     console.log(this.formatedJodi);
     this.finalSelectedCrossing = this.formatedJodi;
@@ -343,13 +388,35 @@ export class GameFormPage implements OnInit {
     this.formatCrossing();
   }
 
+  saveCrossing(){
+    console.log(this.userServerSideCtrl.value);
+
+    if(!this.userServerSideCtrl.value){
+      alert('Please select user');
+      return false;
+    }
+
+    var formdata = {
+      user : this.userServerSideCtrl.value,
+      crossing : {
+        type : this.joditype,
+        numbers: this.selectedJodi,
+        jodi: this.finalSelectedCrossing,
+      },
+      amount: this.enterAmount
+    };
+    if(this.order_id){
+      this.updateOrder(formdata);
+    }
+  }
+
   // ################# harup functions #########################
   // ################# harup functions #########################
   // ################# harup functions #########################
   // ################# harup functions #########################
   harupTypeChange(){
     this.formatedHarup = [];
-    
+
     if(this.fixChangeType != this.harupType){
       this.finalSelectedHarup = '';
       this.fixChangeType = this.harupType;
@@ -394,7 +461,7 @@ export class GameFormPage implements OnInit {
       }).map((a)=>{
         return a.val;
       });
-  
+
       console.log(this.selectedHarup);
 
       for(var i=0; i < this.selectedHarup.length; i++){
@@ -408,7 +475,7 @@ export class GameFormPage implements OnInit {
       }).map((a)=>{
         return a.val;
       });
-  
+
       console.log(this.selectedHarup);
 
       for(var i=0; i < this.selectedHarup.length; i++){
@@ -434,14 +501,34 @@ export class GameFormPage implements OnInit {
     this.formatHarup();
   }
 
+  saveHarup(){
+    console.log(this.userServerSideCtrl.value);
 
+    if(!this.userServerSideCtrl.value){
+      alert('Please select user');
+      return false;
+    }
+
+    var formdata = {
+      user : this.userServerSideCtrl.value,
+      harup : {
+        type : this.harupType,
+        numbers: this.selectedHarup,
+        jodi: this.finalSelectedHarup,
+      },
+      amount: this.enterAmount
+    };
+    if(this.order_id){
+      this.updateOrder(formdata);
+    }
+  }
   // ################# To functions #########################
   // ################# To functions #########################
   // ################# To functions #########################
   // ################# To functions #########################
 
   fromtoChange(){
-    
+
     this.formatedTo=[];
     if(this.toNumber <= this.fromNumber){
       this.toNumber = this.fromNumber+1;
@@ -464,6 +551,29 @@ export class GameFormPage implements OnInit {
       console.log(this.fromNumber,this.toNumber)
     }else{
       this.toNumber = event.target.value;
+    }
+  }
+
+  saveTo(){
+    console.log(this.userServerSideCtrl.value);
+
+    if(!this.userServerSideCtrl.value){
+      alert('Please select user');
+      return false;
+    }
+
+    var formdata = {
+      user : this.userServerSideCtrl.value,
+      to : {
+        type : this.harupType,
+        from : this.fromNumber,
+        to : this.toNumber,
+        jodi : this.finalSelectedTo,
+      },
+      amount: this.enterAmount
+    };
+    if(this.order_id){
+      this.updateOrder(formdata);
     }
   }
 
@@ -506,6 +616,16 @@ export class GameFormPage implements OnInit {
           text: 'Okay',
           handler: () => {
             console.log('Confirm Okay');
+            console.log(type);
+            if(type=='cutting'){
+              this.saveCutting();
+            }else if(type=='crossing'){
+              this.saveCrossing();
+            }else if(type=='harup'){
+              this.saveHarup();
+            }else if(type=='to'){
+              this.saveTo();
+            }
           }
         }
       ]
@@ -531,7 +651,7 @@ export class GameFormPage implements OnInit {
         }
       );
     }
-  
+
     const alert = await this.alertController.create({
       cssClass: 'alert-check-box',
       header: 'Checkbox',

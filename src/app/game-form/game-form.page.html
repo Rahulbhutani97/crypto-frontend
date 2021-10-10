@@ -4,6 +4,9 @@
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Dishawar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="finalSubmit()">Submit</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -30,8 +33,8 @@
   <mat-select [formControl]="userServerSideCtrl" placeholder="User">
     <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
     <mat-option>
-      <ngx-mat-select-search 
-        [formControl]="userServerSideFilteringCtrl" 
+      <ngx-mat-select-search
+        [formControl]="userServerSideFilteringCtrl"
         [searching]="searching"
         placeholderLabel="Find users..."
         [noEntriesFoundLabel]="searchResult">
@@ -58,7 +61,7 @@
     <ion-label mode="ios" color="danger" position="floating">Numbers</ion-label>
     <ion-input [(ngModel)]="cuttingInput" (input)="formatCutting($event)" type="text" placeholder="Enter numbers" appAppOnlyNumber></ion-input>
   </ion-item>
-  
+
 
   <ion-item>
     <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
@@ -67,11 +70,10 @@
 
   <div class="button">
   <ion-button color="danger" shape="round" [disabled]="cuttingSet.length < 1"  (click)="presentAlertCheckbox()" style="margin-right: 50px;">Delete</ion-button>
-  <ion-button color="danger" shape="round" 
-    [disabled]="enterAmount < 1 || cuttingSet.length < 1" 
+  <ion-button color="danger" shape="round"
+    [disabled]="enterAmount < 1 || cuttingSet.length < 1"
     (click)="presentAlertConfirm('cutting','Cutting Details')">Save</ion-button>
   </div>
-  <ion-button (click)="createOrder()">ss</ion-button>
 </div>
 
 
@@ -83,7 +85,7 @@
 <div class="crossing-section" *ngIf="gametype=='crossing'">
   <ion-list lines="none">
     <ion-radio-group (ionChange)="joditypeChange()" [(ngModel)]="joditype">
-  
+
       <ion-item>
         <ion-label>Jodi</ion-label>
         <ion-radio color="danger" slot="start" value="jodi"></ion-radio>
@@ -112,7 +114,7 @@
         <ion-label>Without Jodi</ion-label>
         <ion-radio color="danger" slot="start" value="withoutjodi"></ion-radio>
       </ion-item>
-      
+
       <div [class.disableDiv]="joditype!='withoutjodi'">
       <div class="custom-checkbox">
         <div *ngFor="let num of withoutjodi;let i=index">
@@ -144,10 +146,10 @@
         <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
         <ion-input type="number" [(ngModel)]="enterAmount" placeholder="Enter amount"></ion-input>
       </ion-item>
-    
+
       <div class="button">
-      <ion-button shape="round" color="danger" 
-      [disabled]="enterAmount < 1 || selectedJodi.length < 1" 
+      <ion-button shape="round" color="danger"
+      [disabled]="enterAmount < 1 || selectedJodi.length < 1"
       (click)="presentAlertConfirm('crossing','Crossing Details')">Save</ion-button>
       </div>
     </div>
@@ -164,7 +166,7 @@
 <div class="crossing-section" *ngIf="gametype=='harup'">
   <ion-list lines="none">
     <ion-radio-group (ionChange)="harupTypeChange()" [(ngModel)]="harupType">
-  
+
       <ion-item>
         <ion-label>Andar</ion-label>
         <ion-radio color="danger" slot="start" value="andar"></ion-radio>
@@ -193,7 +195,7 @@
         <ion-label>Bahar</ion-label>
         <ion-radio color="danger" slot="start" value="bahar"></ion-radio>
       </ion-item>
-      
+
       <div [class.disableDiv]="harupType != 'bahar'">
         <div class="custom-checkbox">
           <div *ngFor="let num of bahar;let i=index">
@@ -225,9 +227,9 @@
         <ion-label mode="ios" color="danger" position="floating">Amount</ion-label>
         <ion-input type="number" [(ngModel)]="enterAmount" placeholder="Enter amount"></ion-input>
       </ion-item>
-    
+
       <div class="button">
-      <ion-button shape="round" color="danger" 
+      <ion-button shape="round" color="danger"
       [disabled]="enterAmount < 1 || selectedHarup.length < 1"
        (click)="presentAlertConfirm('harup','Harup Details')">Save</ion-button>
       </div>
@@ -270,8 +272,8 @@
     </ion-item>
   </ion-col>
   <div class="button">
-    <ion-button shape="round" color="danger" 
-    [disabled]="enterAmount < 1 || finalSelectedTo.length < 1" 
+    <ion-button shape="round" color="danger"
+    [disabled]="enterAmount < 1 || finalSelectedTo.length < 1"
     (click)="presentAlertConfirm('to','To Details')">Save</ion-button>
     </div>
 

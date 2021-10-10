@@ -9,6 +9,7 @@ import { AuthenticationService } from './authentication.service';
 })
 export class HttpService {
   origin = 'http://127.0.0.1:8000';
+  //origin = 'https://wilytechnology.in/crypto/public';
   authKey:any = null;
 
   authKeyChange: Subject<any> = new Subject<any>();

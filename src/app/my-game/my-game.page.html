@@ -32,7 +32,7 @@
         <ion-icon name="create" slot="start"></ion-icon>
         Edit
       </ion-button>
-      <ion-button color="danger" fill="outline" slot="end">
+      <ion-button (click)="presentAlertConfirm(game.id)" color="danger" fill="outline" slot="end">
         <ion-icon name="trash" slot="start"></ion-icon>
         Delete
       </ion-button>

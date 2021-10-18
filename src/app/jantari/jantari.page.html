@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    
+
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -13,26 +13,23 @@
           </ion-item>
         </ion-col>
         <ion-col>
-          
+
             <ion-item>
               <!-- <ion-label color="danger">Games</ion-label> -->
-              <ion-select mode="ios" value="Dishawar" okText="Okay" cancelText="Dismiss" interface="action-sheet" placeholder="Select One" style="width: 100%;">
-                <ion-select-option value="Dishawar">Dishawar</ion-select-option>
-                <ion-select-option value="Kalyan">Kalyan</ion-select-option>
-                <ion-select-option value="Faridabad">Faridabad</ion-select-option>
-                <ion-select-option value="Gaziabad">Gaziabad</ion-select-option>
+              <ion-select [(ngModel)]="gameName" mode="ios" value="Dishawar" okText="Okay" cancelText="Dismiss" interface="action-sheet" placeholder="Select Game..." style="width: 100%;">
+                <ion-select-option *ngFor="let game of games" [value]="game.id">{{game.name}}</ion-select-option>
               </ion-select>
             </ion-item>
 
         </ion-col>
         <ion-col>
-          <div class="show-button">
+          <div class="show-button" [class.disabled]="!gameName" (click)="getJantari()">
             Show
           </div>
         </ion-col>
         <ion-col>
-          <div class="total-area">
-            Total:00
+          <div class="total-area" *ngIf="total > 0">
+            Total: {{ total }}
           </div>
         </ion-col>
       </ion-row>
@@ -43,303 +40,39 @@
 
 <ion-content>
 <div class="jantari-container">
-  <table class="jantari-table">
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
+  <table class="jantari-table" *ngIf="JantariData">
+    <tr *ngFor="let i of [1,2,3,4,5,6,7,8,9,0]">
+      <td *ngFor="let j of [0,1,2,3,4,5,6,7,8,9]">
+        <div class="numbers" *ngIf="i != 0">
+          <div class="display-number">{{ j }}{{ i }}</div>
+          <div class="map-number" [class.green]="mapNumber(j*10+i) > 0">{{ mapNumber(j*10+i) }}</div>
+        </div>
+        <div class="numbers" *ngIf="i == 0">
+          <div class="display-number">{{ j==9 ? '0' : j+1  }}{{ i }}</div>
+          <div class="map-number" [class.green]="mapNumber((j+1)*10 == 100 ? 0 : (j+1)*10) > 0" >{{ mapNumber((j+1)*10 == 100 ? 0 : (j+1)*10) }}</div>
+        </div>
+      </td>
+
       <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
+      <td class="odd">A{{i}}</td>
+      <td class="even"><div [class.green]="mapAndar(i) > 0">{{ mapAndar(i) }}</div></td>
+      <td class="odd">B{{i}}</td>
+      <td class="even"><div [class.green]="mapBahar(i) > 0">{{ mapBahar(i) }}</div></td>
     </tr>
+
     <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd">01</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">11</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">21</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">31</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">41</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">51</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">61</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">71</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">81</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">91</td>
-      <td class="even"><div>0</div></td>
-      <td class="blank"><div></div></td>
-      <td class="odd">A1</td>
-      <td class="even"><div>0</div></td>
-      <td class="odd">B1</td>
-      <td class="even"><div>0</div></td>
-    </tr>
-    <tr>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
-      <td class="odd"></td>
-      <td class="total"><div>0</div></td>
+      <td class="total" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+        <div class="numbers">
+          <div class="display-number"></div>
+          <div class="subtotal">{{ mapSubtotal(i) }}</div>
+        </div>
+      </td>
+
       <td class="blank"><div></div></td>
       <td class="odd"></td>
-      <td class="total"><div>00</div></td>
+      <td class="total"><div>{{ mapSubtotalAndar() }}</div></td>
       <td class="odd"></td>
-      <td class="total"><div>00</div></td>
+      <td class="total"><div>{{ mapSubtotalBahar() }}</div></td>
     </tr>
   </table>
 </div>

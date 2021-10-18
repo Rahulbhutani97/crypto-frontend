@@ -8,7 +8,7 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class HttpService {
-  origin = 'http://127.0.0.1:8000';
+  origin = 'http://127.0.0.1:8002';
   //origin = 'https://wilytechnology.in/crypto/public';
   authKey:any = null;
 
@@ -70,6 +70,18 @@ export class HttpService {
     }
 
     return this.http.put(this.origin+api,postdata,{headers:headers})
+    .pipe(
+      catchError(this.handleError) // then handle the error
+    );
+  }
+
+  deleteRequest(api,auth?:boolean,type?:string){
+    let headers = new HttpHeaders();
+    if(auth && this.authKey){
+      headers = headers.set('Authorization', this.authKey);
+    }
+
+    return this.http.delete(this.origin+api,{headers:headers})
     .pipe(
       catchError(this.handleError) // then handle the error
     );

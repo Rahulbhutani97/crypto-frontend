@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { LoaderAlertService } from '../services/loader-alert.service';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 interface responseData{
   status:string,
@@ -23,6 +24,7 @@ export class GamesPage implements OnInit {
   constructor(
     private http:HttpService,
     private loader:LoaderAlertService,
+    private router:Router,
     public toastController: ToastController) {
     this.getGame();
   }

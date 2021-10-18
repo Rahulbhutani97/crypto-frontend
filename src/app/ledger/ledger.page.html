@@ -57,6 +57,6 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+    <tr routerLink="/game-details" [queryParams]="{id:row.id}" mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
   </table>
 </ion-content>

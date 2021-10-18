@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ReplaySubject, Subject } from 'rxjs';
 import {debounceTime, delay, tap, filter, map, takeUntil} from 'rxjs/operators';
@@ -13,7 +13,7 @@ export interface User {
 }
 
 interface Response{
-  status:string;
+  status:any;
   data:any;
   message:string;
 }
@@ -142,6 +142,7 @@ export class GameFormPage implements OnInit {
     public alertController: AlertController,
     private loadingController: LoadingController,
     private route:ActivatedRoute,
+    private router:Router,
     private http:HttpService) {
       this.createOrder();
     }
@@ -222,12 +223,14 @@ export class GameFormPage implements OnInit {
         this.cuttingSetToshow = '';
         this.cuttingSet = [];
         alert(response?.message);
-      }else if(response.status){
+      }else if(response.status == true){
         localStorage.removeItem('order_data');
-      }else if(!response.status){
+        alert(response?.message);
+        this.router.navigate(['/game-details'], { queryParams: {id:response?.data?.id}});
+      }else if(response.status == false){
         alert(response?.message);
       }else{
-        //alert('Something went wrong! Please Try again.');
+        alert('Something went wrong! Please Try again.');
       }
     },error=>{
       this.loadingDismiss();

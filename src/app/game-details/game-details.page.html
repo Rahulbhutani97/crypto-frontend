@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar class="header-background-color">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">
+        <ion-icon slot="icon-only" ios="arrow-back-outline" md="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Game Details</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" ios="share-outline" md="share-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="details-container">
+  <div class="details">
+    <h3>Slip No.: {{ order?.id }}</h3>
+  <p>{{ order?.game_name }}</p>
+  <p>{{ order?.created_at | date }}</p>
+  <p>Grand Total: {{ order?.grand_total }}</p>
+  </div>
+
+  <div class="games" *ngIf="order?.cutting?.total > 0">
+    <h3>Cutting:</h3>
+    <p *ngFor="let numbers of order?.cutting?.numbers">
+      <span *ngFor="let number of numbers">{{ number.numbers }} </span> X {{ numbers[0]?.amount }} = {{ numberOrderTotal(numbers) }}
+    </p>
+    <div>Cutting Total: {{ order?.cutting?.total }}</div>
+  </div>
+
+  <div class="games" *ngIf="order?.crossing_with?.total > 0">
+    <h3>Crossing (With Jodi):</h3>
+    <p *ngFor="let numbers of order?.crossing_with?.numbers">
+      <span *ngFor="let number of numbers">{{ number.numbers }} </span> X {{ numbers[0]?.amount }} = {{ numberOrderTotal(numbers) }}
+    </p>
+    <div>WithJodi Total: {{ order?.crossing_with?.total }}</div>
+  </div>
+
+  <div class="games" *ngIf="order?.crossing_without?.total > 0">
+    <h3>Crossing (Without Jodi):</h3>
+    <p *ngFor="let numbers of order?.crossing_without?.numbers">
+      <span *ngFor="let number of numbers">{{ number.numbers }} </span> X {{ numbers[0]?.amount }} = {{ numberOrderTotal(numbers) }}
+    </p>
+    <div>WithoutJodi Total: {{ order?.crossing_without?.total }}</div>
+  </div>
+
+  <div class="games" *ngIf="order?.harup_andar?.total > 0">
+    <h3>Harup (Andar):</h3>
+    <p *ngFor="let numbers of order?.harup_andar?.numbers">
+      <span *ngFor="let number of numbers">{{ number.numbers }} </span> X {{ numbers[0]?.amount }} = {{ numberOrderTotal(numbers) }}
+    </p>
+    <div>Harup Total: {{ order?.harup_andar?.total }}</div>
+  </div>
+
+  <div class="games" *ngIf="order?.harup_bahar?.total > 0">
+    <h3>Harup (Bahar):</h3>
+    <p *ngFor="let numbers of order?.harup_bahar?.numbers">
+      <span *ngFor="let number of numbers">{{ number.numbers }} </span> X {{ numbers[0]?.amount }} = {{ numberOrderTotal(numbers) }}
+    </p>
+    <div>Harup Total: {{ order?.harup_bahar?.total }}</div>
+  </div>
+
+  <div class="games" *ngIf="order?.to?.total > 0">
+    <h3>To:</h3>
+    <p *ngFor="let numbers of order?.to?.numbers">
+      {{ numbers[0]?.numbers }} TO {{ numbers[numbers.length-1]?.numbers }} X {{ numbers[0]?.amount }} = {{ numberOrderTotal(numbers) }}
+    </p>
+    <div>To Total: {{ order?.to?.total }}</div>
+  </div>
+
+  <div class="btn-container">
+  <ion-button color="danger">Print</ion-button>
+  <ion-button color="danger">Paid</ion-button>
+  </div>
+</div>
+</ion-content>

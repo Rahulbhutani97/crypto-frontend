@@ -29,7 +29,6 @@
     "@ionic-native/status-bar": "^5.36.0",
     "@ionic/angular": "^5.5.2",
     "@ionic/storage-angular": "^3.0.6",
-    "cordova-android": "9.1.0",
     "ngx-mat-select-search": "^3.3.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -239,10 +239,10 @@ export class GameFormPage implements OnInit {
   }
 
   finalSubmit(){
-    if(!this.userServerSideCtrl.value){
-      alert('Please select user');
-      return false;
-    }
+    // if(!this.userServerSideCtrl.value){
+    //   alert('Please select user');
+    //   return false;
+    // }
 
     var formdata = {
       user: this.userServerSideCtrl.value,
@@ -282,10 +282,10 @@ export class GameFormPage implements OnInit {
   saveCutting(){
     console.log(this.userServerSideCtrl.value);
 
-    if(!this.userServerSideCtrl.value){
-      alert('Please select user');
-      return false;
-    }
+    // if(!this.userServerSideCtrl.value){
+    //   alert('Please select user');
+    //   return false;
+    // }
 
     var formdata = {
       user: this.userServerSideCtrl.value,
@@ -394,10 +394,10 @@ export class GameFormPage implements OnInit {
   saveCrossing(){
     console.log(this.userServerSideCtrl.value);
 
-    if(!this.userServerSideCtrl.value){
-      alert('Please select user');
-      return false;
-    }
+    // if(!this.userServerSideCtrl.value){
+    //   alert('Please select user');
+    //   return false;
+    // }
 
     var formdata = {
       user : this.userServerSideCtrl.value,
@@ -507,10 +507,10 @@ export class GameFormPage implements OnInit {
   saveHarup(){
     console.log(this.userServerSideCtrl.value);
 
-    if(!this.userServerSideCtrl.value){
-      alert('Please select user');
-      return false;
-    }
+    // if(!this.userServerSideCtrl.value){
+    //   alert('Please select user');
+    //   return false;
+    // }
 
     var formdata = {
       user : this.userServerSideCtrl.value,
@@ -560,10 +560,10 @@ export class GameFormPage implements OnInit {
   saveTo(){
     console.log(this.userServerSideCtrl.value);
 
-    if(!this.userServerSideCtrl.value){
-      alert('Please select user');
-      return false;
-    }
+    // if(!this.userServerSideCtrl.value){
+    //   alert('Please select user');
+    //   return false;
+    // }
 
     var formdata = {
       user : this.userServerSideCtrl.value,
@@ -698,6 +698,22 @@ export class GameFormPage implements OnInit {
 
   async loadingDismiss() {
     this.loadingController.dismiss().then(() => console.log('loading dismissed'));
+  }
+
+  keyPressNumbers(event){
+    console.log(event);
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if(charCode == 0 || charCode == 229){
+      charCode = event.target.value.charAt(event.target.selectionStart - 1).charCodeAt();
+    }
+    console.log(charCode);
+    // Only Numbers 0-9
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+      return false;
+    }else{
+      return true;
+    }
   }
 
 }

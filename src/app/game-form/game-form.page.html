@@ -59,7 +59,7 @@
 
   <ion-item>
     <ion-label mode="ios" color="danger" position="floating">Numbers</ion-label>
-    <ion-input [(ngModel)]="cuttingInput" (input)="formatCutting($event)" type="text" placeholder="Enter numbers" appAppOnlyNumber></ion-input>
+    <ion-input inputmode="numeric" pattern="[0-9]*" [(ngModel)]="cuttingInput" (input)="formatCutting($event)" type="text" placeholder="Enter numbers" appCuttingNumberOnpaste></ion-input>
   </ion-item>
 
 

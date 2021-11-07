@@ -11,6 +11,7 @@ import { AppOnlyNumberDirective } from '../directives/app-only-number.directive'
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { CuttingNumberOnpasteDirective } from '../directives/cutting-number-onpaste/cutting-number-onpaste.directive';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     NgxMatSelectSearchModule
   ],
-  declarations: [GameFormPage, AppOnlyNumberDirective]
+  declarations: [GameFormPage, AppOnlyNumberDirective, CuttingNumberOnpasteDirective]
 })
 export class GameFormPageModule {}

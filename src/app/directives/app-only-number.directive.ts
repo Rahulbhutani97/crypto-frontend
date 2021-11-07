@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appAppOnlyNumber]'
+  selector: '[AppOnlyNumber]'
 })
 export class AppOnlyNumberDirective {
 
@@ -26,6 +26,11 @@ export class AppOnlyNumberDirective {
 
   @HostListener('keydown', ['$event'])
   onKeyDown(e: KeyboardEvent) {
+    // let event = e || window.event;
+    //console.log(e.keyCode);
+    // if (event) {
+    //   return this.isNumberKey(event);
+    // }
     if (
       this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
       (e.key === 'a' && e.ctrlKey === true) || // Allow: Ctrl+A
@@ -48,6 +53,14 @@ export class AppOnlyNumberDirective {
       e.preventDefault();
     }
   }
+
+  // isNumberKey(event) {
+  //   let charCode = event.which ? event.which : event.keyCode;
+  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+  //   return false;
+  //   }
+  //   return true;
+  // }
 
   @HostListener('paste', ['$event'])
   onPaste(event: ClipboardEvent) {

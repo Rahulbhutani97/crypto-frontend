@@ -8,8 +8,9 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class HttpService {
-  origin = 'http://127.0.0.1:8002';
-  //origin = 'https://wilytechnology.in/crypto/public';
+  //origin = 'http://127.0.0.1:8000';
+  //origin = 'http://192.168.43.112:8000';
+  origin = 'https://wilytechnology.in/crypto/public';
   authKey:any = null;
 
   authKeyChange: Subject<any> = new Subject<any>();

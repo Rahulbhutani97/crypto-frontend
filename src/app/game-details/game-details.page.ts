@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../services/http.service';
 import { LoaderAlertService } from '../services/loader-alert.service';
+//import { Screenshot } from '@ionic-native/screenshot/ngx';
+//import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 interface responseData{
   status:string,
@@ -20,7 +22,9 @@ export class GameDetailsPage implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private http:HttpService,
-    private loader:LoaderAlertService
+    private loader:LoaderAlertService,
+    //private screenshot: Screenshot,
+    //private socialSharing: SocialSharing
     ) { }
 
   ngOnInit() {
@@ -50,6 +54,22 @@ export class GameDetailsPage implements OnInit {
       this.loader.loadingDismiss();
       this.error = error.error.errors;
     });
+  }
+
+  shareScreenShot(){
+    // var onSuccess=(res)=>{
+    //   console.log(res);
+    //   // Share via email
+    //   // this.socialSharing.share('Body', 'Subject', res.URI).then(() => {
+    //   //   // Success!
+    //   // }).catch(() => {
+    //   //   // Error!
+    //   // });
+    // }
+    // let onError = (err)=>{
+    //   console.log('aa');
+    // }
+    // this.screenshot.URI(80).then(onSuccess, onError);
   }
 
   numberOrderTotal(numbers){

@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Screenshot } from '@ionic-native/screenshot/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +26,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
     ReactiveFormsModule,
     IonicStorageModule.forRoot()
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, StatusBar],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, StatusBar, Screenshot],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

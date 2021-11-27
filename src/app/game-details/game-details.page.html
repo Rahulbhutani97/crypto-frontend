@@ -8,7 +8,7 @@
     <ion-title>Game Details</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button (click)="shareScreenShot()">
+      <ion-button (click)="shareScreenshot()">
         <ion-icon slot="icon-only" ios="share-outline" md="share-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -74,7 +74,7 @@
 
   <div class="btn-container">
   <ion-button color="danger">Print</ion-button>
-  <ion-button color="danger">Paid</ion-button>
+  <ion-button color="danger" (click)="paid()">Paid</ion-button>
   </div>
 </div>
 </ion-content>
